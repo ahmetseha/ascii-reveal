@@ -1,0 +1,18 @@
+{
+  "name": "@ascii-reveal/docs",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vitepress dev docs",
+    "build": "vitepress build docs",
+    "typecheck": "tsc --noEmit",
+    "clean": "node -e \"require('node:fs').rmSync('docs/.vitepress/dist',{recursive:true,force:true})\""
+  },
+  "dependencies": {
+    "@ascii-reveal/core": "workspace:*",
+    "search-insights": "2.17.3",
+    "vitepress": "1.6.4",
+    "vue": "3.5.40"
+  }
+}

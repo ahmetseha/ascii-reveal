@@ -1,0 +1,44 @@
+name: Feature request
+description: Propose a focused addition that fits AsciiReveal's narrow scope.
+title: "[Feature]: "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      {
+        label: Problem being solved,
+        description: "Describe the concrete product need, not only a desired implementation.",
+      }
+    validations: { required: true }
+  - type: textarea
+    id: api
+    attributes: { label: Proposed API, render: typescript }
+    validations: { required: true }
+  - type: textarea
+    id: alternatives
+    attributes: { label: Alternatives considered }
+    validations: { required: true }
+  - type: textarea
+    id: bundle
+    attributes:
+      {
+        label: Bundle-size impact,
+        description: "Estimate or measure the gzip impact on each affected package.",
+      }
+    validations: { required: true }
+  - type: textarea
+    id: accessibility
+    attributes:
+      {
+        label: Accessibility impact,
+        description: "Include keyboard, assistive technology, and reduced-motion considerations.",
+      }
+    validations: { required: true }
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope fit
+      options:
+        - label: This proposal directly improves ASCII text scrambling/reveal and does not broaden the project into a general animation library.
+          required: true

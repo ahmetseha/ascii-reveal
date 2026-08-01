@@ -1,0 +1,20 @@
+{
+  "name": "@ascii-reveal/playground",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\""
+  },
+  "dependencies": {
+    "@ascii-reveal/core": "workspace:*",
+    "@ascii-reveal/react": "workspace:*",
+    "@ascii-reveal/vue": "workspace:*"
+  },
+  "devDependencies": {
+    "vite": "8.2.0"
+  }
+}

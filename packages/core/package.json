@@ -1,0 +1,53 @@
+{
+  "name": "@ascii-reveal/core",
+  "version": "0.0.0",
+  "description": "Framework-independent accessible ASCII text reveal animations.",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  },
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\""
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YOUR_GITHUB_ORG/ascii-reveal.git",
+    "directory": "packages/core"
+  },
+  "keywords": [
+    "ascii",
+    "animation",
+    "text",
+    "scramble",
+    "accessible"
+  ]
+}

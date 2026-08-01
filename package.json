@@ -1,0 +1,72 @@
+{
+  "name": "ascii-reveal",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.18.0",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "test": "pnpm test:unit && pnpm test:e2e",
+    "test:unit": "vitest run --coverage",
+    "test:e2e": "playwright test",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "typecheck": "turbo typecheck",
+    "size": "pnpm build && size-limit",
+    "docs:dev": "pnpm --filter @ascii-reveal/docs dev",
+    "docs:build": "pnpm --filter @ascii-reveal/docs build",
+    "changeset": "changeset",
+    "release": "pnpm build && changeset publish",
+    "clean": "turbo clean && node scripts/clean.mjs",
+    "check:exports": "pnpm build && pnpm --filter './packages/*' exec publint",
+    "serve:e2e": "pnpm --filter @ascii-reveal/playground build && vite preview --config apps/playground/vite.config.ts --host 127.0.0.1 --port 4173",
+    "serve:docs-e2e": "pnpm docs:build && pnpm --filter @ascii-reveal/docs exec vitepress preview docs --host 127.0.0.1 --port 4174"
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "0.7.0",
+    "@changesets/cli": "2.31.1",
+    "@eslint/js": "10.0.1",
+    "@playwright/test": "1.62.1",
+    "@size-limit/file": "13.0.3",
+    "@types/node": "26.1.0",
+    "@vitest/coverage-v8": "4.1.10",
+    "eslint": "10.8.0",
+    "globals": "17.8.0",
+    "jsdom": "30.0.1",
+    "prettier": "3.9.6",
+    "publint": "0.3.22",
+    "size-limit": "13.0.3",
+    "turbo": "2.10.8",
+    "tsup": "8.5.1",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.65.0",
+    "vite": "8.2.0",
+    "vitest": "4.1.10"
+  },
+  "size-limit": [
+    {
+      "name": "@ascii-reveal/core",
+      "path": "packages/core/dist/index.js",
+      "limit": "2.5 kB",
+      "gzip": true
+    },
+    {
+      "name": "@ascii-reveal/react",
+      "path": "packages/react/dist/index.js",
+      "limit": "1.5 kB",
+      "gzip": true
+    },
+    {
+      "name": "@ascii-reveal/vue",
+      "path": "packages/vue/dist/index.js",
+      "limit": "1.5 kB",
+      "gzip": true
+    }
+  ]
+}

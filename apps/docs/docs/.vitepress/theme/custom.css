@@ -1,0 +1,49 @@
+:root {
+  --vp-c-bg: #0b0d0c;
+  --vp-c-bg-alt: #0f1210;
+  --vp-c-bg-soft: #141815;
+  --vp-c-border: #303632;
+  --vp-c-divider: #262b28;
+  --vp-c-brand-1: #88e85b;
+  --vp-c-brand-2: #a6ff75;
+  --vp-c-brand-3: #6fc545;
+  --vp-font-family-mono: "SFMono-Regular", Consolas, monospace;
+}
+.VPHome {
+  padding-bottom: 4rem;
+}
+.VPHero .name {
+  font-family: var(--vp-font-family-mono);
+  letter-spacing: -0.04em;
+}
+.VPHero .text {
+  max-width: 780px;
+  font-size: clamp(2.1rem, 6vw, 4rem);
+}
+.ascii-demo {
+  margin: 2rem 0;
+  border: 1px solid var(--vp-c-border);
+  background: var(--vp-c-bg-alt);
+  padding: clamp(1.5rem, 5vw, 4rem);
+  display: grid;
+  gap: 1rem;
+}
+.ascii-demo button {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--vp-c-text-1);
+  text-align: left;
+  font: 700 clamp(1.4rem, 4vw, 3rem)/1.15 var(--vp-font-family-mono);
+  cursor: pointer;
+}
+.ascii-demo button:focus-visible {
+  outline: 2px solid var(--vp-c-brand-1);
+  outline-offset: 8px;
+}
+.ascii-demo > span {
+  color: var(--vp-c-text-3);
+  font: 0.75rem var(--vp-font-family-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}

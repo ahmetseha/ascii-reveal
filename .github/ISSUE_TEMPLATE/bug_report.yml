@@ -1,0 +1,66 @@
+name: Bug report
+description: Report a reproducible problem in AsciiReveal.
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: dropdown
+    id: package
+    attributes:
+      label: Package
+      options:
+        [
+          "@ascii-reveal/core",
+          "@ascii-reveal/react",
+          "@ascii-reveal/vue",
+          "docs/playground",
+        ]
+    validations: { required: true }
+  - type: input
+    id: package-version
+    attributes: { label: Package version, placeholder: "0.1.0" }
+    validations: { required: true }
+  - type: input
+    id: framework-version
+    attributes:
+      {
+        label: Framework version,
+        description: "React/Vue version, or 'not applicable'.",
+      }
+    validations: { required: true }
+  - type: input
+    id: browser
+    attributes: { label: Browser, placeholder: "Chrome 140" }
+    validations: { required: true }
+  - type: input
+    id: operating-system
+    attributes: { label: Operating system, placeholder: "macOS 16" }
+    validations: { required: true }
+  - type: textarea
+    id: reproduction
+    attributes:
+      {
+        label: Reproduction,
+        description: "Link to a minimal reproduction or provide exact steps.",
+      }
+    validations: { required: true }
+  - type: textarea
+    id: expected
+    attributes: { label: Expected behavior }
+    validations: { required: true }
+  - type: textarea
+    id: actual
+    attributes: { label: Actual behavior }
+    validations: { required: true }
+  - type: dropdown
+    id: reduced-motion
+    attributes:
+      label: Reduced-motion setting
+      options: ["No preference", "Reduce", "Unknown"]
+    validations: { required: true }
+  - type: textarea
+    id: context
+    attributes:
+      {
+        label: Additional context,
+        description: "Logs, screenshots, or relevant configuration. Remove secrets.",
+      }
