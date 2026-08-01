@@ -11,7 +11,7 @@ const DEFAULT_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*+-=?";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <header>
-    <a class="wordmark" href="/" aria-label="AsciiReveal home"><i>AR</i><span>AsciiReveal</span></a>
+    <a class="wordmark" href="/" aria-label="AsciiReveal home"><img src="/mark.svg" alt="" /><span>AsciiReveal</span></a>
     <span class="environment"><i></i> playground / local</span>
     <a class="docs-link" href="/guide/getting-started">Docs <span>↗</span></a>
   </header>

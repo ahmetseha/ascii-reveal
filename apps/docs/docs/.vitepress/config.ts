@@ -34,6 +34,7 @@ export default defineConfig({
     search: { provider: "local" },
   },
   head: [
+    ["link", { rel: "icon", href: "/mark.svg", type: "image/svg+xml" }],
     ["meta", { name: "theme-color", content: "#070708" }],
     ["meta", { name: "color-scheme", content: "dark" }],
   ],

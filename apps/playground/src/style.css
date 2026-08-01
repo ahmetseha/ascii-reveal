@@ -82,15 +82,10 @@ header {
   text-decoration: none;
 }
 
-.wordmark i {
+.wordmark img {
   width: 27px;
   height: 27px;
-  display: grid;
-  place-items: center;
-  border: 1px solid var(--line-strong);
-  border-radius: 8px;
-  color: var(--violet);
-  font: normal 0.56rem var(--mono);
+  display: block;
 }
 
 .environment {

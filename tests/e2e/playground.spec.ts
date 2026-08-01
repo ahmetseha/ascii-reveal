@@ -88,7 +88,7 @@ test("documentation homepage playground updates options and replays", async ({
     .getByRole("button", { name: "manual" })
     .click();
   const demo = page.getByRole("button", {
-    name: "Replay the configured ASCII reveal",
+    name: "ASCII reveal preview",
   });
   await demo.click();
   await expect(demo.locator("[aria-hidden=true]")).toHaveText("seha", {
@@ -106,4 +106,11 @@ test("documentation homepage playground updates options and replays", async ({
   await expect(page.locator(".inline-code")).toContainText(
     '"characters": "01"',
   );
+
+  await page.getByRole("tab", { name: "React" }).click();
+  await expect(page.locator(".micro-code")).toContainText(
+    "@ascii-reveal/react",
+  );
+  await page.getByRole("tab", { name: "Vue" }).click();
+  await expect(page.locator(".micro-code")).toContainText("@ascii-reveal/vue");
 });

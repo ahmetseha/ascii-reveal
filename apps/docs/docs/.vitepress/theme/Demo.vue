@@ -64,6 +64,17 @@ const generatedCode = computed(
 
 const play = () => void controls?.play();
 
+const handlePreviewClick = () => {
+  if (settings.trigger === "manual") play();
+};
+
+const triggerHint = computed(() => {
+  if (settings.trigger === "hover") return "Hover the preview";
+  if (settings.trigger === "focus") return "Focus the preview";
+  if (settings.trigger === "manual") return "Click the preview";
+  return "Runs when mounted";
+});
+
 const selectCharacterSet = (name: keyof typeof characterSets) => {
   settings.characters = characterSets[name];
 };
@@ -98,101 +109,102 @@ onBeforeUnmount(() => controls?.destroy());
 <template>
   <div class="inline-playground">
     <div class="inline-controls">
-      <label class="inline-field inline-field--text">
-        <span>Text</span>
-        <input v-model="settings.text" aria-label="Text" />
-      </label>
+      <div class="inline-controls__primary">
+        <label class="inline-field inline-field--text">
+          <span>Preview text</span>
+          <input v-model="settings.text" aria-label="Text" />
+        </label>
 
-      <fieldset>
-        <legend>Trigger</legend>
-        <div class="inline-segments">
-          <button
-            v-for="value in ['mount', 'hover', 'focus', 'manual']"
-            :key="value"
-            type="button"
-            :class="{ 'is-active': settings.trigger === value }"
-            :aria-pressed="settings.trigger === value"
-            @click="settings.trigger = value as AsciiRevealTrigger"
+        <label class="inline-range">
+          <span
+            >Duration <strong>{{ settings.duration }} ms</strong></span
           >
-            {{ value }}
-          </button>
-        </div>
-      </fieldset>
+          <input
+            v-model.number="settings.duration"
+            type="range"
+            min="100"
+            max="1800"
+            step="50"
+          />
+        </label>
+      </div>
 
-      <fieldset>
-        <legend>Direction</legend>
-        <div class="inline-segments">
-          <button
-            v-for="value in ['left', 'right', 'center', 'random']"
-            :key="value"
-            type="button"
-            :class="{ 'is-active': settings.direction === value }"
-            :aria-pressed="settings.direction === value"
-            @click="settings.direction = value as AsciiRevealDirection"
-          >
-            {{ value }}
-          </button>
-        </div>
-      </fieldset>
+      <div class="inline-controls__options">
+        <fieldset>
+          <legend><span>01</span> Trigger</legend>
+          <div class="inline-segments">
+            <button
+              v-for="value in ['mount', 'hover', 'focus', 'manual']"
+              :key="value"
+              type="button"
+              :class="{ 'is-active': settings.trigger === value }"
+              :aria-pressed="settings.trigger === value"
+              @click="settings.trigger = value as AsciiRevealTrigger"
+            >
+              {{ value }}
+            </button>
+          </div>
+        </fieldset>
 
-      <fieldset>
-        <legend>Characters</legend>
-        <div class="inline-segments inline-segments--three">
-          <button
-            v-for="(_, name) in characterSets"
-            :key="name"
-            type="button"
-            :class="{
-              'is-active': settings.characters === characterSets[name],
-            }"
-            :aria-pressed="settings.characters === characterSets[name]"
-            @click="selectCharacterSet(name)"
-          >
-            {{ name }}
-          </button>
-        </div>
-      </fieldset>
+        <fieldset>
+          <legend><span>02</span> Direction</legend>
+          <div class="inline-segments">
+            <button
+              v-for="value in ['left', 'right', 'center', 'random']"
+              :key="value"
+              type="button"
+              :class="{ 'is-active': settings.direction === value }"
+              :aria-pressed="settings.direction === value"
+              @click="settings.direction = value as AsciiRevealDirection"
+            >
+              {{ value }}
+            </button>
+          </div>
+        </fieldset>
 
-      <label class="inline-range">
-        <span
-          >Duration <strong>{{ settings.duration }} ms</strong></span
-        >
-        <input
-          v-model.number="settings.duration"
-          type="range"
-          min="100"
-          max="1800"
-          step="50"
-        />
-      </label>
+        <fieldset>
+          <legend><span>03</span> Characters</legend>
+          <div class="inline-segments inline-segments--three">
+            <button
+              v-for="(_, name) in characterSets"
+              :key="name"
+              type="button"
+              :class="{
+                'is-active': settings.characters === characterSets[name],
+              }"
+              :aria-pressed="settings.characters === characterSets[name]"
+              @click="selectCharacterSet(name)"
+            >
+              {{ name }}
+            </button>
+          </div>
+        </fieldset>
+      </div>
     </div>
 
     <section class="inline-preview" aria-label="Live preview">
+      <div class="inline-preview-meta">
+        <span class="inline-preview-status"><i></i>{{ status }}</span>
+        <span>{{ triggerHint }}</span>
+      </div>
       <div class="inline-reveal-card">
         <button
           ref="element"
           type="button"
-          aria-label="Replay the configured ASCII reveal"
-          @click="play"
+          aria-label="ASCII reveal preview"
+          @click="handlePreviewClick"
         >
           MAKE TEXT FEEL ALIVE
         </button>
       </div>
-      <button
-        class="inline-play-toggle"
-        type="button"
-        :aria-label="
-          status === 'playing' ? 'Animation playing' : 'Replay animation'
-        "
-        @click="play"
-      >
-        <span aria-hidden="true">{{ status === "playing" ? "Ⅱ" : "▶" }}</span>
-      </button>
     </section>
 
     <section class="inline-code" aria-label="Generated code">
+      <div class="inline-code-head">
+        <span>Generated configuration</span>
+        <button type="button" @click="copyCode">{{ copyLabel }}</button>
+      </div>
       <pre><code>{{ generatedCode }}</code></pre>
-      <button type="button" @click="copyCode">{{ copyLabel }}</button>
     </section>
   </div>
 </template>

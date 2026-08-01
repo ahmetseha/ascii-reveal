@@ -1,5 +1,42 @@
 <script setup lang="ts">
+import { ref } from "vue";
 import Demo from "./Demo.vue";
+
+const vueScriptClose = "</scr" + "ipt>";
+
+const usageExamples = {
+  Vanilla: `import { createAsciiReveal } from "@ascii-reveal/core";
+
+createAsciiReveal(element, {
+  text: "MAKE TEXT FEEL ALIVE",
+  trigger: "hover",
+  direction: "random",
+});`,
+  React: `import { AsciiReveal } from "@ascii-reveal/react";
+
+export function Title() {
+  return (
+    <AsciiReveal
+      text="MAKE TEXT FEEL ALIVE"
+      trigger="hover"
+      direction="random"
+    />
+  );
+}`,
+  Vue: `<script setup lang="ts">
+import { AsciiReveal } from "@ascii-reveal/vue";
+${vueScriptClose}
+
+<template>
+  <AsciiReveal
+    text="MAKE TEXT FEEL ALIVE"
+    trigger="hover"
+    direction="random"
+  />
+</template>`,
+} as const;
+
+const activeUsage = ref<keyof typeof usageExamples>("Vanilla");
 </script>
 
 <template>
@@ -40,14 +77,28 @@ import Demo from "./Demo.vue";
     </section>
 
     <section class="micro-section" aria-labelledby="usage-title">
-      <h2 id="usage-title">Usage</h2>
+      <div class="micro-section-head">
+        <h2 id="usage-title">Usage</h2>
+        <div class="usage-tabs" role="tablist" aria-label="Framework example">
+          <button
+            v-for="(_, framework) in usageExamples"
+            :key="framework"
+            type="button"
+            role="tab"
+            :aria-selected="activeUsage === framework"
+            :class="{ 'is-active': activeUsage === framework }"
+            @click="activeUsage = framework"
+          >
+            {{ framework }}
+          </button>
+        </div>
+      </div>
       <div class="micro-code">
-        <pre><code><span class="code-keyword">import</span> { createAsciiReveal } <span class="code-keyword">from</span> <span class="code-string">"@ascii-reveal/core"</span>;
-
-createAsciiReveal(element, {
-  text: <span class="code-string">"MAKE TEXT FEEL ALIVE"</span>,
-  direction: <span class="code-string">"random"</span>,
-});</code></pre>
+        <div class="micro-code-label">
+          <span>{{ activeUsage }}</span>
+          <span>{{ activeUsage === "Vanilla" ? "core" : "adapter" }}</span>
+        </div>
+        <pre><code>{{ usageExamples[activeUsage] }}</code></pre>
       </div>
     </section>
 
