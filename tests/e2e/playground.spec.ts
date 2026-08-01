@@ -71,20 +71,39 @@ test("reduced motion renders the final text immediately", async ({
   await context.close();
 });
 
-test("documentation examples load and the live example replays", async ({
+test("documentation homepage playground updates options and replays", async ({
   page,
 }) => {
   await page.goto("http://127.0.0.1:4174/examples");
   await expect(page.getByRole("heading", { name: "Examples" })).toBeVisible();
   await expect(page.locator("pre").first()).toContainText("createAsciiReveal");
   await page.goto("http://127.0.0.1:4174/");
-  const demo = page.locator(".ascii-demo button");
-  await expect(demo).toHaveAccessibleName("BUILD SOMETHING MEMORABLE");
+  await expect(
+    page.getByRole("heading", { name: "AsciiReveal", level: 1 }),
+  ).toBeVisible();
+
+  await page.getByLabel("Text").fill("seha");
+  await page
+    .getByRole("group", { name: "Trigger" })
+    .getByRole("button", { name: "manual" })
+    .click();
+  const demo = page.getByRole("button", {
+    name: "Replay the configured ASCII reveal",
+  });
   await demo.click();
-  await expect(demo.locator("[aria-hidden=true]")).toHaveText(
-    "BUILD SOMETHING MEMORABLE",
-    {
-      timeout: 3_000,
-    },
+  await expect(demo.locator("[aria-hidden=true]")).toHaveText("seha", {
+    timeout: 3_000,
+  });
+  await expect(page.locator(".inline-code")).toContainText(
+    '"trigger": "manual"',
+  );
+  await expect(page.locator(".inline-code")).not.toContainText('"characters"');
+
+  await page
+    .getByRole("group", { name: "Characters" })
+    .getByRole("button", { name: "Binary" })
+    .click();
+  await expect(page.locator(".inline-code")).toContainText(
+    '"characters": "01"',
   );
 });

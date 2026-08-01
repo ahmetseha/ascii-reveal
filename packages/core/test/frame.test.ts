@@ -39,6 +39,25 @@ describe("generateAsciiFrame", () => {
     );
   });
 
+  it("matches scrambled letter casing to the target text", () => {
+    expect(
+      generateAsciiFrame({
+        text: "seha",
+        progress: 0,
+        characters: "ABC",
+        seed: 42,
+      }),
+    ).toMatch(/^[abc]{4}$/);
+    expect(
+      generateAsciiFrame({
+        text: "SeHa",
+        progress: 0,
+        characters: "a",
+        seed: 42,
+      }),
+    ).toBe("AaAa");
+  });
+
   it("preserves spaces, tabs, and new lines by default", () => {
     expect(
       generateAsciiFrame({ text: "A B\tC\nD", progress: 0, characters: "_" }),

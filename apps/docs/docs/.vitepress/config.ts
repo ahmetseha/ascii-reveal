@@ -7,13 +7,9 @@ export default defineConfig({
   description: "Small, accessible ASCII text reveal animations.",
   cleanUrls: true,
   lastUpdated: true,
+  appearance: "force-dark",
   themeConfig: {
     logo: { src: "/mark.svg", alt: "AsciiReveal" },
-    nav: [
-      { text: "Guide", link: "/guide/getting-started" },
-      { text: "Examples", link: "/examples" },
-      { text: "API", link: "/api" },
-    ],
     sidebar: [
       {
         text: "Guide",
@@ -37,5 +33,8 @@ export default defineConfig({
     },
     search: { provider: "local" },
   },
-  head: [["meta", { name: "theme-color", content: "#0b0d0c" }]],
+  head: [
+    ["meta", { name: "theme-color", content: "#070708" }],
+    ["meta", { name: "color-scheme", content: "dark" }],
+  ],
 });

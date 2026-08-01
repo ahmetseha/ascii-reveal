@@ -31,6 +31,15 @@ const isFixed = (
 ): boolean =>
   (spaces && /\s/u.test(value)) || (punctuation && /\p{P}/u.test(value));
 
+const matchTargetCase = (character: string, target: string): string => {
+  const lower = target.toLowerCase();
+  const upper = target.toUpperCase();
+  if (lower === upper) return character;
+  if (target === lower) return character.toLowerCase();
+  if (target === upper) return character.toUpperCase();
+  return character;
+};
+
 const revealOrder = (
   indexes: number[],
   direction: AsciiRevealDirection,
@@ -98,9 +107,9 @@ export const generateAsciiFrame = (options: AsciiFrameOptions): string => {
   return text
     .map((value, index) => {
       if (fixed[index] || revealed.has(index)) return value;
-      return (
-        characters[Math.floor(next() * characters.length)] ??
-        DEFAULT_CHARACTERS[0]
+      return matchTargetCase(
+        characters[Math.floor(next() * characters.length)] ?? "A",
+        value,
       );
     })
     .join("");

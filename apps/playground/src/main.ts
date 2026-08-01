@@ -11,12 +11,17 @@ const DEFAULT_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*+-=?";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <header>
-    <a class="wordmark" href="/">ASCII/REVEAL</a>
-    <span>developer playground</span>
+    <a class="wordmark" href="/" aria-label="AsciiReveal home"><i>AR</i><span>AsciiReveal</span></a>
+    <span class="environment"><i></i> playground / local</span>
+    <a class="docs-link" href="/guide/getting-started">Docs <span>↗</span></a>
   </header>
   <section class="layout">
     <form id="controls" aria-label="Animation controls">
-      <h1>Configuration</h1>
+      <div class="controls-heading">
+        <span>01 / Input</span>
+        <h1>Shape the signal</h1>
+        <p>Change any value. The preview and generated API call stay in sync.</p>
+      </div>
       <label>Text<textarea name="text" rows="3">BUILD SOMETHING MEMORABLE</textarea></label>
       <label>Characters<input name="characters" value="${DEFAULT_CHARACTERS}" /></label>
       <div class="pair">
@@ -40,8 +45,12 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
       <label class="check"><input name="respectReducedMotion" type="checkbox" checked /> Respect reduced motion</label>
     </form>
     <div class="stage-column">
+      <div class="stage-heading">
+        <div><span>02 / Output</span><h2>Live preview</h2></div>
+        <p>Click the message or use the controls below to replay the animation.</p>
+      </div>
       <section class="stage" aria-labelledby="preview-title">
-        <div class="stage-label"><span id="preview-title">Preview</span><span id="state">idle</span></div>
+        <div class="stage-label"><span id="preview-title"><i></i> Live signal</span><span id="state">idle</span></div>
         <button id="preview" type="button"></button>
         <output id="rendered" aria-live="off"></output>
         <div class="actions">
@@ -51,11 +60,11 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         </div>
       </section>
       <section class="code-panel">
-        <div class="stage-label"><span>Generated code</span><button id="copy" type="button">Copy</button></div>
+        <div class="stage-label"><span>Generated code</span><button id="copy" type="button">Copy <span>↗</span></button></div>
         <pre><code id="code"></code></pre>
       </section>
       <section class="sizes">
-        <h2>Current build metadata</h2>
+        <div><span>03 / Footprint</span><h2>Current build metadata</h2></div>
         <div id="sizes"></div>
       </section>
     </div>
@@ -102,7 +111,9 @@ const codeFor = (
 const reveal = createAsciiReveal(element, ${JSON.stringify(
   {
     text: options.text,
-    characters: options.characters,
+    ...(options.characters === DEFAULT_CHARACTERS
+      ? {}
+      : { characters: options.characters }),
     duration: options.duration,
     fps: options.fps,
     trigger: options.trigger,
@@ -139,7 +150,7 @@ document.querySelector("#finish")!.addEventListener("click", () => {
 });
 document.querySelector("#copy")!.addEventListener("click", async (event) => {
   await navigator.clipboard.writeText(code.textContent ?? "");
-  (event.currentTarget as HTMLButtonElement).textContent = "Copied";
+  (event.currentTarget as HTMLButtonElement).textContent = "Copied ✓";
 });
 
 const formatSize = (value: number | null) =>
