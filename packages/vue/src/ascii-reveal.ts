@@ -1,4 +1,5 @@
 import type {
+  AsciiRevealCharacters,
   AsciiRevealDirection,
   AsciiRevealTrigger,
 } from "@ascii-reveal/core";
@@ -30,7 +31,7 @@ export const AsciiReveal = defineComponent({
   props: {
     text: { type: String, required: true },
     as: { type: String, default: "span" },
-    characters: String,
+    characters: String as PropType<AsciiRevealCharacters>,
     duration: Number,
     delay: Number,
     fps: Number,

@@ -1,7 +1,24 @@
-import type { AsciiFrameOptions, AsciiRevealDirection } from "./types";
+import type {
+  AsciiFrameOptions,
+  AsciiRevealCharacterPreset,
+  AsciiRevealDirection,
+} from "./types";
 
-export const DEFAULT_CHARACTERS =
-  "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*+-=?";
+export const CHARACTER_PRESETS = {
+  ascii: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*+-=?",
+  binary: "01",
+  symbols: "!<>-_\\/[]{}—=+*^?#",
+} satisfies Record<AsciiRevealCharacterPreset, string>;
+
+export const DEFAULT_CHARACTERS = CHARACTER_PRESETS.ascii;
+
+export const resolveCharacters = (characters?: string): string => {
+  if (!characters?.length) return DEFAULT_CHARACTERS;
+  if (characters === "ascii") return CHARACTER_PRESETS.ascii;
+  if (characters === "binary") return CHARACTER_PRESETS.binary;
+  if (characters === "symbols") return CHARACTER_PRESETS.symbols;
+  return characters;
+};
 
 const segment = (value: string): string[] => {
   if (typeof Intl !== "undefined" && "Segmenter" in Intl) {
@@ -79,9 +96,7 @@ export const generateAsciiFrame = (options: AsciiFrameOptions): string => {
   if (progress === 1) return options.text;
 
   const text = segment(options.text);
-  const characters = segment(
-    options.characters?.length ? options.characters : DEFAULT_CHARACTERS,
-  );
+  const characters = segment(resolveCharacters(options.characters));
   const fixed = text.map((value) =>
     isFixed(
       value,

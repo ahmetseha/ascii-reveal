@@ -8,7 +8,7 @@
 const reveal = createAsciiReveal(element, {
   text: "SYSTEM ONLINE",
   trigger: "manual",
-  characters: "01_/",
+  characters: "binary",
   duration: 900,
 });
 

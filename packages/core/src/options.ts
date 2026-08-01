@@ -1,4 +1,4 @@
-import { DEFAULT_CHARACTERS } from "./frame";
+import { DEFAULT_CHARACTERS, resolveCharacters } from "./frame";
 import type { AsciiRevealOptions, ResolvedAsciiRevealOptions } from "./types";
 
 const nonNegative = (value: number | undefined, fallback: number): number =>
@@ -13,7 +13,7 @@ export const resolveOptions = (
   text:
     typeof options.text === "string" ? options.text : (previous?.text ?? ""),
   characters: options.characters?.length
-    ? options.characters
+    ? resolveCharacters(options.characters)
     : (previous?.characters ?? DEFAULT_CHARACTERS),
   duration: nonNegative(options.duration, previous?.duration ?? 700),
   delay: nonNegative(options.delay, previous?.delay ?? 0),

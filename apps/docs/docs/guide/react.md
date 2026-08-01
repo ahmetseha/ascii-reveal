@@ -10,7 +10,7 @@ export function ProjectLink() {
       text="VIEW PROJECT"
       trigger="hover"
       direction="random"
-      characters="01"
+      characters="binary"
       seed={42}
       className="project-link"
     />

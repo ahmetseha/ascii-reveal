@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 import { generateAsciiFrame } from "../src";
-import { DEFAULT_CHARACTERS, segmentText } from "../src/frame";
+import {
+  CHARACTER_PRESETS,
+  DEFAULT_CHARACTERS,
+  segmentText,
+} from "../src/frame";
 import { resolveOptions } from "../src/options";
 
 describe("generateAsciiFrame", () => {
@@ -36,6 +40,22 @@ describe("generateAsciiFrame", () => {
     expect(generateAsciiFrame(options)).toBe(generateAsciiFrame(options));
     expect(generateAsciiFrame({ ...options, seed: 43 })).not.toBe(
       generateAsciiFrame(options),
+    );
+  });
+
+  it.each([
+    ["ascii", CHARACTER_PRESETS.ascii],
+    ["binary", CHARACTER_PRESETS.binary],
+    ["symbols", CHARACTER_PRESETS.symbols],
+  ] as const)("resolves the %s character preset", (characters, expected) => {
+    const frame = generateAsciiFrame({
+      text: "TEST",
+      progress: 0,
+      characters,
+      seed: 42,
+    });
+    expect(Array.from(frame).every((value) => expected.includes(value))).toBe(
+      true,
     );
   });
 

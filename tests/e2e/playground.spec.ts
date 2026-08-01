@@ -106,20 +106,31 @@ test("documentation homepage playground updates options and replays", async ({
   await expect(page.locator(".inline-code")).toContainText(
     '"trigger": "manual"',
   );
-  await expect(page.locator(".inline-code")).not.toContainText('"characters"');
+  await expect(page.locator(".inline-code")).toContainText(
+    '"characters": "ascii"',
+  );
 
   await page
     .getByRole("group", { name: "Characters" })
     .getByRole("button", { name: "Binary" })
     .click();
   await expect(page.locator(".inline-code")).toContainText(
+    '"characters": "binary"',
+  );
+  await expect(page.locator(".inline-code")).not.toContainText(
     '"characters": "01"',
   );
 
   await page.getByRole("tab", { name: "React" }).click();
-  await expect(page.locator(".micro-code")).toContainText(
+  await expect(page.locator(".inline-code")).toContainText(
     "@ascii-reveal/react",
   );
+  await expect(page.locator(".inline-code")).toContainText(
+    'characters="binary"',
+  );
   await page.getByRole("tab", { name: "Vue" }).click();
-  await expect(page.locator(".micro-code")).toContainText("@ascii-reveal/vue");
+  await expect(page.locator(".inline-code")).toContainText("@ascii-reveal/vue");
+  await expect(page.locator(".inline-code")).toContainText(
+    'characters="binary"',
+  );
 });

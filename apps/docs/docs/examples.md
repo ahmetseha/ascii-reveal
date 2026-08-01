@@ -32,7 +32,12 @@ createAsciiReveal(sectionHeading, {
 ## Seeded binary animation
 
 ```tsx
-<AsciiReveal text="DEPLOY READY" characters="01" direction="random" seed={42} />
+<AsciiReveal
+  text="DEPLOY READY"
+  characters="binary"
+  direction="random"
+  seed={42}
+/>
 ```
 
 ## Custom character set

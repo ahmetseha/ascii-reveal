@@ -3,9 +3,14 @@ export type AsciiRevealTrigger =
 
 export type AsciiRevealDirection = "left" | "right" | "center" | "random";
 
+export type AsciiRevealCharacterPreset = "ascii" | "binary" | "symbols";
+
+export type AsciiRevealCharacters =
+  AsciiRevealCharacterPreset | (string & Record<never, never>);
+
 export interface AsciiRevealOptions {
   text: string;
-  characters?: string;
+  characters?: AsciiRevealCharacters;
   duration?: number;
   delay?: number;
   fps?: number;
@@ -26,7 +31,7 @@ export interface AsciiRevealOptions {
 export interface AsciiFrameOptions {
   text: string;
   progress: number;
-  characters?: string;
+  characters?: AsciiRevealCharacters;
   direction?: AsciiRevealDirection;
   preserveSpaces?: boolean;
   preservePunctuation?: boolean;

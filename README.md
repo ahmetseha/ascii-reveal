@@ -27,7 +27,7 @@ import { createAsciiReveal } from "@ascii-reveal/core";
 const reveal = createAsciiReveal(document.querySelector("h1")!, {
   text: "SYSTEM ONLINE",
   trigger: "manual",
-  characters: "01_/",
+  characters: "binary",
   duration: 900,
 });
 
@@ -50,7 +50,7 @@ import { AsciiReveal } from "@ascii-reveal/vue";
 
 ## API at a glance
 
-Core exports `createAsciiReveal(element, options)` and the DOM-free `generateAsciiFrame(options)`. React and Vue export an `AsciiReveal` component and a `useAsciiReveal` hook/composable. All adapters share mount, hover, focus, in-view, and manual triggers; left, right, center, and seeded-random directions; and custom character sets.
+Core exports `createAsciiReveal(element, options)` and the DOM-free `generateAsciiFrame(options)`. React and Vue export an `AsciiReveal` component and a `useAsciiReveal` hook/composable. All adapters share mount, hover, focus, in-view, and manual triggers; left, right, center, and seeded-random directions; the `ascii`, `binary`, and `symbols` presets; and custom character sets.
 
 The controller exposes `play`, `reset`, `finish`, `update`, `destroy`, and readonly `isPlaying`. See the [full API](apps/docs/docs/api.md).
 

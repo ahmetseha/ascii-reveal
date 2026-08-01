@@ -10,24 +10,24 @@ Pure utility accepting `text`, `progress`, and the frame-related options below. 
 
 ## Options
 
-| Option                 | Type                                           | Default               |
-| ---------------------- | ---------------------------------------------- | --------------------- |
-| `text`                 | `string`                                       | required              |
-| `characters`           | `string`                                       | `A-Z`, `0-9`, symbols |
-| `duration`             | `number`                                       | `700`                 |
-| `delay`                | `number`                                       | `0`                   |
-| `fps`                  | `number`                                       | `30`                  |
-| `trigger`              | `mount \| hover \| focus \| in-view \| manual` | `mount`               |
-| `direction`            | `left \| right \| center \| random`            | `left`                |
-| `preserveSpaces`       | `boolean`                                      | `true`                |
-| `preservePunctuation`  | `boolean`                                      | `false`               |
-| `startScrambled`       | `boolean`                                      | `true`                |
-| `replay`               | `boolean`                                      | `true`                |
-| `seed`                 | `number`                                       | random                |
-| `respectReducedMotion` | `boolean`                                      | `true`                |
-| `intersectionMargin`   | `string`                                       | `0px`                 |
-| `onStart`              | `() => void`                                   | —                     |
-| `onUpdate`             | `(value, progress) => void`                    | —                     |
-| `onComplete`           | `() => void`                                   | —                     |
+| Option                 | Type                                           | Default  |
+| ---------------------- | ---------------------------------------------- | -------- |
+| `text`                 | `string`                                       | required |
+| `characters`           | `ascii \| binary \| symbols \| string`         | `ascii`  |
+| `duration`             | `number`                                       | `700`    |
+| `delay`                | `number`                                       | `0`      |
+| `fps`                  | `number`                                       | `30`     |
+| `trigger`              | `mount \| hover \| focus \| in-view \| manual` | `mount`  |
+| `direction`            | `left \| right \| center \| random`            | `left`   |
+| `preserveSpaces`       | `boolean`                                      | `true`   |
+| `preservePunctuation`  | `boolean`                                      | `false`  |
+| `startScrambled`       | `boolean`                                      | `true`   |
+| `replay`               | `boolean`                                      | `true`   |
+| `seed`                 | `number`                                       | random   |
+| `respectReducedMotion` | `boolean`                                      | `true`   |
+| `intersectionMargin`   | `string`                                       | `0px`    |
+| `onStart`              | `() => void`                                   | —        |
+| `onUpdate`             | `(value, progress) => void`                    | —        |
+| `onComplete`           | `() => void`                                   | —        |
 
-Invalid durations and delays fall back to safe defaults. FPS is at least one, and an empty character set uses the default.
+Use `ascii`, `binary`, or `symbols` for the built-in character presets. Any other non-empty string is treated as a custom character set. Invalid durations and delays fall back to safe defaults. FPS is at least one, and an empty character set uses `ascii`.

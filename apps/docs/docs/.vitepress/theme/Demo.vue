@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {
   createAsciiReveal,
+  type AsciiRevealCharacterPreset,
   type AsciiRevealControls,
   type AsciiRevealDirection,
   type AsciiRevealTrigger,
@@ -15,23 +16,28 @@ import {
 } from "vue";
 
 const characterSets = {
-  ASCII: "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%&*+-=?",
-  Binary: "01",
-  Symbols: "!<>-_\/[]{}—=+*^?#",
+  ASCII: "ascii",
+  Binary: "binary",
+  Symbols: "symbols",
 } as const;
+
+const frameworks = ["Core", "React", "Vue"] as const;
+type Framework = (typeof frameworks)[number];
+const vueScriptClose = "</scr" + "ipt>";
 
 const settings = reactive({
   text: "MAKE TEXT FEEL ALIVE",
   trigger: "mount" as AsciiRevealTrigger,
   direction: "random" as AsciiRevealDirection,
   duration: 700,
-  characters: characterSets.ASCII,
+  characters: "ascii" as AsciiRevealCharacterPreset,
   seed: 42,
 });
 
 const element = ref<HTMLElement | null>(null);
 const status = ref("ready");
 const copyLabel = ref("Copy");
+const activeFramework = ref<Framework>("Core");
 let controls: AsciiRevealControls | undefined;
 
 const options = () => ({
@@ -44,23 +50,52 @@ const options = () => ({
   },
 });
 
-const generatedCode = computed(
-  () =>
-    `createAsciiReveal(element, ${JSON.stringify(
-      {
-        text: settings.text,
-        trigger: settings.trigger,
-        direction: settings.direction,
-        duration: settings.duration,
-        ...(settings.characters === characterSets.ASCII
-          ? {}
-          : { characters: settings.characters }),
-        seed: settings.seed,
-      },
-      null,
-      2,
-    )});`,
-);
+const generatedCode = computed(() => {
+  const props = {
+    text: settings.text,
+    trigger: settings.trigger,
+    direction: settings.direction,
+    duration: settings.duration,
+    characters: settings.characters,
+    seed: settings.seed,
+  };
+
+  if (activeFramework.value === "Core") {
+    return `import { createAsciiReveal } from "@ascii-reveal/core";
+
+createAsciiReveal(element, ${JSON.stringify(props, null, 2)});`;
+  }
+
+  if (activeFramework.value === "React") {
+    return `import { AsciiReveal } from "@ascii-reveal/react";
+
+<AsciiReveal
+  text={${JSON.stringify(settings.text)}}
+  trigger="${settings.trigger}"
+  direction="${settings.direction}"
+  duration={${settings.duration}}
+  characters="${settings.characters}"
+  seed={${settings.seed}}
+/>;`;
+  }
+
+  return `<script setup lang="ts">
+import { AsciiReveal } from "@ascii-reveal/vue";
+
+const previewText = ${JSON.stringify(settings.text)};
+${vueScriptClose}
+
+<template>
+  <AsciiReveal
+    :text="previewText"
+    trigger="${settings.trigger}"
+    direction="${settings.direction}"
+    :duration="${settings.duration}"
+    characters="${settings.characters}"
+    :seed="${settings.seed}"
+  />
+</template>`;
+});
 
 const play = () => void controls?.play();
 
@@ -80,9 +115,7 @@ const selectCharacterSet = (name: keyof typeof characterSets) => {
 };
 
 const copyCode = async () => {
-  await navigator.clipboard.writeText(
-    `import { createAsciiReveal } from "@ascii-reveal/core";\n\n${generatedCode.value}`,
-  );
+  await navigator.clipboard.writeText(generatedCode.value);
   copyLabel.value = "Copied";
   window.setTimeout(() => {
     copyLabel.value = "Copy";
@@ -201,8 +234,29 @@ onBeforeUnmount(() => controls?.destroy());
 
     <section class="inline-code" aria-label="Generated code">
       <div class="inline-code-head">
-        <span>Generated configuration</span>
-        <button type="button" @click="copyCode">{{ copyLabel }}</button>
+        <span>Generated usage</span>
+        <div class="inline-code-tools">
+          <div
+            class="usage-tabs usage-tabs--code"
+            role="tablist"
+            aria-label="Generated code framework"
+          >
+            <button
+              v-for="framework in frameworks"
+              :key="framework"
+              type="button"
+              role="tab"
+              :aria-selected="activeFramework === framework"
+              :class="{ 'is-active': activeFramework === framework }"
+              @click="activeFramework = framework"
+            >
+              {{ framework }}
+            </button>
+          </div>
+          <button class="inline-code-copy" type="button" @click="copyCode">
+            {{ copyLabel }}
+          </button>
+        </div>
       </div>
       <pre><code>{{ generatedCode }}</code></pre>
     </section>

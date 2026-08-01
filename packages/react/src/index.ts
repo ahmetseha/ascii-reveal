@@ -3,6 +3,8 @@ export { useAsciiReveal } from "./use-ascii-reveal";
 export type { AsciiRevealProps } from "./ascii-reveal";
 export type { UseAsciiRevealResult } from "./use-ascii-reveal";
 export type {
+  AsciiRevealCharacterPreset,
+  AsciiRevealCharacters,
   AsciiRevealControls,
   AsciiRevealDirection,
   AsciiRevealOptions,

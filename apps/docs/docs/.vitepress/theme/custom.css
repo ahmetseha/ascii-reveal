@@ -543,7 +543,17 @@ body {
   padding: 18px 20px 22px;
 }
 
-.inline-code-head > button {
+.inline-code-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.usage-tabs--code {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.inline-code-copy {
   height: 28px;
   border: 0;
   border-radius: 6px;
@@ -554,7 +564,7 @@ body {
   cursor: pointer;
 }
 
-.inline-code-head > button:hover {
+.inline-code-copy:hover {
   background: rgba(255, 255, 255, 0.06);
   color: #ededed;
 }
@@ -645,6 +655,21 @@ a:focus-visible {
     flex-direction: column;
     gap: 7px;
     margin-bottom: 8px;
+  }
+
+  .inline-code-head {
+    height: auto;
+    min-height: 44px;
+    padding: 6px 10px;
+  }
+
+  .inline-code-head > span {
+    display: none;
+  }
+
+  .inline-code-tools {
+    width: 100%;
+    justify-content: space-between;
   }
 }
 
