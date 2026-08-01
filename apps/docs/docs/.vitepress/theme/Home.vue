@@ -7,7 +7,8 @@ import Demo from "./Demo.vue";
     <header class="micro-hero">
       <nav class="micro-links" aria-label="External links">
         <a
-          href="https://github.com/YOUR_GITHUB_ORG/ascii-reveal"
+          target="_blank"
+          href="https://github.com/ahmetseha/ascii-reveal"
           aria-label="GitHub repository"
         >
           <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -18,7 +19,8 @@ import Demo from "./Demo.vue";
           </svg>
         </a>
         <a
-          href="https://www.npmjs.com/org/ascii-reveal"
+          target="_blank"
+          href="https://www.npmjs.com/package/ascii-reveal"
           aria-label="npm package"
         >
           <span>npm</span>
