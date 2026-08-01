@@ -28,7 +28,20 @@ html,
 body,
 html:not(.dark) {
   color-scheme: dark;
-  background: #070707;
+  background-color: #070707;
+  background-image: none;
+}
+
+#app,
+.Layout,
+.VPContent,
+.VPDoc,
+.VPDoc .container,
+.VPDoc .content,
+.VPDoc .content-container,
+.micro-home {
+  background-color: #070707 !important;
+  background-image: none !important;
 }
 
 body {

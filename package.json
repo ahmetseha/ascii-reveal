@@ -8,7 +8,8 @@
     "node": ">=22.13.0"
   },
   "scripts": {
-    "dev": "turbo dev",
+    "dev": "pnpm --filter @ascii-reveal/docs dev",
+    "dev:all": "turbo dev",
     "build": "turbo build",
     "test": "pnpm test:unit && pnpm test:e2e",
     "test:unit": "vitest run --coverage",
@@ -20,6 +21,7 @@
     "typecheck": "turbo typecheck",
     "size": "pnpm build && size-limit",
     "docs:dev": "pnpm --filter @ascii-reveal/docs dev",
+    "playground:dev": "pnpm --filter @ascii-reveal/playground dev",
     "docs:build": "pnpm --filter @ascii-reveal/docs build",
     "changeset": "changeset",
     "release": "pnpm build && changeset publish",

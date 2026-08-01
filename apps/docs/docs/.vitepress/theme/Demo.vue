@@ -65,14 +65,14 @@ const generatedCode = computed(
 const play = () => void controls?.play();
 
 const handlePreviewClick = () => {
-  if (settings.trigger === "manual") play();
+  if (settings.trigger === "mount" || settings.trigger === "manual") play();
 };
 
 const triggerHint = computed(() => {
   if (settings.trigger === "hover") return "Hover the preview";
   if (settings.trigger === "focus") return "Focus the preview";
   if (settings.trigger === "manual") return "Click the preview";
-  return "Runs when mounted";
+  return "Runs on mount · click to replay";
 });
 
 const selectCharacterSet = (name: keyof typeof characterSets) => {

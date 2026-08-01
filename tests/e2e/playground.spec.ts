@@ -82,14 +82,23 @@ test("documentation homepage playground updates options and replays", async ({
     page.getByRole("heading", { name: "AsciiReveal", level: 1 }),
   ).toBeVisible();
 
+  const demo = page.getByRole("button", {
+    name: "ASCII reveal preview",
+  });
+  await expect(page.locator(".inline-preview-status")).toContainText(
+    "complete",
+  );
+  await demo.click();
+  await expect(page.locator(".inline-preview-status")).toContainText("playing");
+  await expect(page.locator(".inline-preview-status")).toContainText(
+    "complete",
+  );
+
   await page.getByLabel("Text").fill("seha");
   await page
     .getByRole("group", { name: "Trigger" })
     .getByRole("button", { name: "manual" })
     .click();
-  const demo = page.getByRole("button", {
-    name: "ASCII reveal preview",
-  });
   await demo.click();
   await expect(demo.locator("[aria-hidden=true]")).toHaveText("seha", {
     timeout: 3_000,
