@@ -33,7 +33,7 @@ jobs:
       - name: Create release pull request or publish packages
         uses: changesets/action@v1
         with:
-          publish: pnpm release
+          publish: ${{ vars.NPM_PUBLISH_ENABLED == 'true' && 'pnpm release' || '' }}
           title: "chore: release packages"
           commit: "chore: release packages"
           createGithubReleases: true
@@ -41,3 +41,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_CONFIG_PROVENANCE: "true"
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Report skipped npm publishing
+        if: vars.NPM_PUBLISH_ENABLED != 'true'
+        run: echo "::notice::npm publishing is disabled; set the NPM_PUBLISH_ENABLED repository variable to true after configuring npm authentication"
