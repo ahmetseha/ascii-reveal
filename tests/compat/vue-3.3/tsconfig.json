@@ -1,0 +1,15 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": "../../..",
+    "noEmit": true,
+    "paths": {
+      "@ascii-reveal/core": ["packages/core/dist/index.d.ts"],
+      "@ascii-reveal/vue": ["packages/vue/dist/index.d.ts"],
+      "vue": ["node_modules/vue-3-3"]
+    },
+    "skipLibCheck": false,
+    "types": []
+  },
+  "include": ["consumer.ts"]
+}

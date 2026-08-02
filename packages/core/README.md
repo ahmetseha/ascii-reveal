@@ -1,6 +1,6 @@
 # @ascii-reveal/core
 
-Framework-independent, accessible ASCII text reveal animations. See the [repository documentation](https://github.com/YOUR_GITHUB_ORG/ascii-reveal) for usage and API details.
+Framework-independent, accessible ASCII text reveal animations. See the [repository documentation](https://github.com/ahmetseha/ascii-reveal) for usage and API details.
 
 ```ts
 import { createAsciiReveal } from "@ascii-reveal/core";

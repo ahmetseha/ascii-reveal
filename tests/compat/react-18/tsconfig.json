@@ -1,0 +1,15 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": "../../..",
+    "noEmit": true,
+    "paths": {
+      "@ascii-reveal/core": ["packages/core/dist/index.d.ts"],
+      "@ascii-reveal/react": ["packages/react/dist/index.d.ts"],
+      "react": ["node_modules/react-types-18"]
+    },
+    "skipLibCheck": false,
+    "types": []
+  },
+  "include": ["consumer.ts"]
+}

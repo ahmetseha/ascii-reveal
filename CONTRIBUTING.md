@@ -4,10 +4,10 @@ Thank you for helping keep AsciiReveal small, reliable, and accessible. Version 
 
 ## Prerequisites and setup
 
-Use Node.js 22.18 or later, pnpm 11.18, and Git.
+Use Node.js 22.22.2 or later, pnpm 11.18, and Git.
 
 ```sh
-git clone https://github.com/YOUR_GITHUB_ORG/ascii-reveal.git
+git clone https://github.com/ahmetseha/ascii-reveal.git
 cd ascii-reveal
 pnpm install
 pnpm dev
@@ -22,6 +22,7 @@ pnpm lint
 pnpm format:check
 pnpm typecheck
 pnpm test:unit
+pnpm test:compat
 pnpm test:e2e
 pnpm build
 pnpm size
@@ -47,6 +48,15 @@ Contributors are recognized in release notes and the repository history. Maintai
 
 ## Maintainer release setup
 
-Before the first release, replace the repository placeholders listed in `repo.config.ts`, package manifests, GitHub templates, and Changesets config; replace the CODEOWNERS maintainer and security email; create or claim the `@ascii-reveal` npm scope; and add an npm automation token as the GitHub Actions secret `NPM_TOKEN`. Keep branch protection enabled on `main` and allow the release workflow to write contents and pull requests. Never commit npm or GitHub tokens.
+Before the first release, create or claim the `@ascii-reveal` npm scope and add a granular npm access token with read/write access to that scope and 2FA bypass as the GitHub Actions secret `NPM_TOKEN`. The token is only needed to bootstrap packages that do not yet exist on npm; after the first release, configure `release.yml` as the trusted publisher for each package and remove the long-lived token. Keep branch protection enabled on `main` and allow the release workflow to write contents, pull requests, and OIDC identity tokens. Never commit npm or GitHub tokens.
+
+After the first publish, open the settings for each public package on npm and add a GitHub Actions trusted publisher with these exact values:
+
+- Organization or user: `ahmetseha`
+- Repository: `ascii-reveal`
+- Workflow filename: `release.yml`
+- Allowed action: `npm publish`
+
+Leave the environment field empty unless the workflow is later assigned to a protected GitHub environment. Once all three packages trust this workflow, remove the `NPM_TOKEN` secret; npm CLI uses the short-lived OIDC identity and generates provenance automatically.
 
 Pushing a Changeset to `main` makes `changesets/action` open or update a release pull request. Review and merge that pull request; the next `main` run publishes versions not yet present on npm and creates GitHub releases. The workflow skips publishing when no package version is pending.

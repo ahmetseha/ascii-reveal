@@ -1,6 +1,7 @@
 import type {
   AsciiRevealCharacters,
   AsciiRevealDirection,
+  AsciiRevealOptions,
   AsciiRevealTrigger,
 } from "@ascii-reveal/core";
 import {
@@ -8,6 +9,7 @@ import {
   defineComponent,
   h,
   type CSSProperties,
+  type DefineComponent,
   type PropType,
 } from "vue";
 import { useAsciiReveal } from "./use-ascii-reveal";
@@ -24,6 +26,11 @@ const hidden: CSSProperties = {
   whiteSpace: "nowrap",
   width: "1px",
 };
+
+/** Public component props kept independent from Vue's version-specific internals. */
+export interface AsciiRevealProps extends AsciiRevealOptions {
+  as?: string;
+}
 
 export const AsciiReveal = defineComponent({
   name: "AsciiReveal",
@@ -87,9 +94,9 @@ export const AsciiReveal = defineComponent({
     expose(reveal);
 
     return () =>
-      h(props.as, { ...attrs, ref: reveal.element }, [
+      h(props.as ?? "span", { ...attrs, ref: reveal.element }, [
         h("span", { "aria-hidden": "true" }, props.text),
         h("span", { style: hidden }, props.text),
       ]);
   },
-});
+}) as DefineComponent<AsciiRevealProps>;

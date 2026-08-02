@@ -28,6 +28,7 @@ jobs:
       - run: pnpm lint
       - run: pnpm typecheck
       - run: pnpm test:unit
+      - run: pnpm test:compat
       - run: pnpm build
       - run: pnpm size
       - run: pnpm docs:build

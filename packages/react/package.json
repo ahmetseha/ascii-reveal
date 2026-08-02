@@ -55,7 +55,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YOUR_GITHUB_ORG/ascii-reveal.git",
+    "url": "git+https://github.com/ahmetseha/ascii-reveal.git",
     "directory": "packages/react"
-  }
+  },
+  "homepage": "https://github.com/ahmetseha/ascii-reveal#readme",
+  "bugs": {
+    "url": "https://github.com/ahmetseha/ascii-reveal/issues"
+  },
+  "keywords": [
+    "ascii",
+    "animation",
+    "text",
+    "scramble",
+    "react",
+    "accessible"
+  ]
 }

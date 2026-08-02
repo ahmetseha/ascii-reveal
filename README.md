@@ -5,7 +5,7 @@
    B%#L&ING → BUILDING
 ```
 
-[![CI](https://github.com/YOUR_GITHUB_ORG/ascii-reveal/actions/workflows/ci.yml/badge.svg)](https://github.com/YOUR_GITHUB_ORG/ascii-reveal/actions/workflows/ci.yml) [![MIT License](https://img.shields.io/badge/license-MIT-a6ff75.svg)](LICENSE) [![changesets](https://img.shields.io/badge/managed%20with-Changesets-176de3.svg)](https://github.com/changesets/changesets)
+[![CI](https://github.com/ahmetseha/ascii-reveal/actions/workflows/ci.yml/badge.svg)](https://github.com/ahmetseha/ascii-reveal/actions/workflows/ci.yml) [![MIT License](https://img.shields.io/badge/license-MIT-a6ff75.svg)](LICENSE) [![changesets](https://img.shields.io/badge/managed%20with-Changesets-176de3.svg)](https://github.com/changesets/changesets)
 
 AsciiReveal is a small, accessible, framework-independent library that temporarily scrambles text with ASCII characters and progressively reveals the final string.
 
