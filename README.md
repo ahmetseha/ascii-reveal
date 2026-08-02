@@ -1,78 +1,114 @@
 # AsciiReveal
 
+Accessible ASCII text reveal animations for JavaScript, React, and Vue.
+
 ```text
-   ASCII / REVEAL
-   B%#L&ING → BUILDING
+B%#L&ING  ->  BUILDING
 ```
 
-[![CI](https://github.com/ahmetseha/ascii-reveal/actions/workflows/ci.yml/badge.svg)](https://github.com/ahmetseha/ascii-reveal/actions/workflows/ci.yml) [![MIT License](https://img.shields.io/badge/license-MIT-a6ff75.svg)](LICENSE) [![changesets](https://img.shields.io/badge/managed%20with-Changesets-176de3.svg)](https://github.com/changesets/changesets)
+[![CI](https://github.com/ahmetseha/ascii-reveal/actions/workflows/ci.yml/badge.svg)](https://github.com/ahmetseha/ascii-reveal/actions/workflows/ci.yml)
+[![MIT License](https://img.shields.io/badge/license-MIT-a6ff75.svg)](LICENSE)
 
-AsciiReveal is a small, accessible, framework-independent library that temporarily scrambles text with ASCII characters and progressively reveals the final string.
-
-> Animated demo placeholder: the documentation homepage contains the live, reduced-motion-aware demo once the site is running.
+AsciiReveal briefly scrambles text, then reveals the original value character by character. It is small, dependency-light, SSR-safe, and respects reduced-motion preferences by default.
 
 ## Install
 
+Choose the package for your project:
+
 ```sh
-pnpm add @ascii-reveal/core
-# or: pnpm add @ascii-reveal/react @ascii-reveal/core
-# or: pnpm add @ascii-reveal/vue @ascii-reveal/core
+npm install @ascii-reveal/core   # Vanilla JavaScript / TypeScript
+npm install @ascii-reveal/react  # React 18+
+npm install @ascii-reveal/vue    # Vue 3.3+
 ```
 
-## Use
+## Quick start
+
+### JavaScript
 
 ```ts
 import { createAsciiReveal } from "@ascii-reveal/core";
 
-const reveal = createAsciiReveal(document.querySelector("h1")!, {
-  text: "SYSTEM ONLINE",
-  trigger: "manual",
-  characters: "binary",
-  duration: 900,
-});
+const element = document.querySelector<HTMLElement>("h1");
+if (!element) throw new Error("Heading not found");
 
-button.addEventListener("click", () => reveal.play());
+const reveal = createAsciiReveal(element, {
+  text: "SYSTEM ONLINE",
+  characters: "ascii",
+  trigger: "mount",
+  direction: "left",
+  duration: 700,
+});
 ```
+
+### React
 
 ```tsx
 import { AsciiReveal } from "@ascii-reveal/react";
 
-<AsciiReveal text="BUILD SOMETHING MEMORABLE" />;
+export function Title() {
+  return (
+    <AsciiReveal
+      as="h1"
+      text="BUILD SOMETHING MEMORABLE"
+      trigger="hover"
+      characters="symbols"
+    />
+  );
+}
 ```
+
+### Vue
 
 ```vue
 <script setup lang="ts">
 import { AsciiReveal } from "@ascii-reveal/vue";
 </script>
 
-<template><AsciiReveal text="EXPLORE THE ARCHIVE" /></template>
+<template>
+  <AsciiReveal
+    as="h1"
+    text="EXPLORE THE ARCHIVE"
+    trigger="in-view"
+    characters="binary"
+  />
+</template>
 ```
 
-## API at a glance
+## Main options
 
-Core exports `createAsciiReveal(element, options)` and the DOM-free `generateAsciiFrame(options)`. React and Vue export an `AsciiReveal` component and a `useAsciiReveal` hook/composable. All adapters share mount, hover, focus, in-view, and manual triggers; left, right, center, and seeded-random directions; the `ascii`, `binary`, and `symbols` presets; and custom character sets.
+| Option       | Values                                           | Default |
+| ------------ | ------------------------------------------------ | ------- |
+| `characters` | `ascii`, `binary`, `symbols`, or a custom string | `ascii` |
+| `trigger`    | `mount`, `hover`, `focus`, `in-view`, `manual`   | `mount` |
+| `direction`  | `left`, `right`, `center`, `random`              | `left`  |
+| `duration`   | milliseconds                                     | `700`   |
+| `delay`      | milliseconds                                     | `0`     |
+| `replay`     | replay when triggered again                      | `true`  |
+| `seed`       | deterministic random seed                        | random  |
 
-The controller exposes `play`, `reset`, `finish`, `update`, `destroy`, and readonly `isPlaying`. See the [full API](apps/docs/docs/api.md).
+The core controller provides `play()`, `reset()`, `finish()`, `update()`, and `destroy()`. React exports `AsciiReveal` and `useAsciiReveal`; Vue exports `AsciiReveal` and `useAsciiReveal`.
 
-## Accessibility and size
+## Accessibility
 
-Animated frames are hidden from assistive technology while stable final text remains readable. Hover demos work with keyboard focus, and reduced-motion preferences are respected by default. See the [accessibility guide](apps/docs/docs/guide/accessibility.md).
+The animated value is hidden from assistive technologies while the final text remains available to screen readers. Keyboard focus is supported, Unicode text is handled safely, and `prefers-reduced-motion` is respected unless explicitly disabled.
 
-CI enforces gzip budgets of **2.5 kB** for core and **1.5 kB** for each adapter, excluding its framework and core. Published packages have no third-party animation or utility runtime dependencies.
+## Documentation
 
-AsciiReveal targets modern browsers with `requestAnimationFrame`; in-view animations use `IntersectionObserver` with a no-polyfill fallback. `Intl.Segmenter` is preferred for grapheme-safe Unicode and emoji handling, with `Array.from` as the fallback. Imports are SSR-safe.
+- [Complete API](apps/docs/docs/api.md)
+- [Accessibility guide](apps/docs/docs/guide/accessibility.md)
+- [Core package](packages/core/README.md)
+- [React package](packages/react/README.md)
+- [Vue package](packages/vue/README.md)
 
-## Develop
+## Development
 
 ```sh
 pnpm install
-pnpm dev
 pnpm test:unit
 pnpm test:e2e
 pnpm build
-pnpm size
 ```
 
-Read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting a change and [SECURITY.md](SECURITY.md) before reporting a vulnerability. Repository and npm URL placeholders are centralized in [`repo.config.ts`](repo.config.ts); replace them before publishing.
+Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) and [SECURITY.md](SECURITY.md).
 
-AsciiReveal is independent and is not affiliated with any other animation library. Licensed under the [MIT License](LICENSE).
+MIT licensed.
