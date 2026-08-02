@@ -1,6 +1,6 @@
 {
   "name": "@ascii-reveal/core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Framework-independent accessible ASCII text reveal animations.",
   "license": "MIT",
   "engines": {
