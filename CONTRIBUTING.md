@@ -57,6 +57,6 @@ After the first publish, open the settings for each public package on npm and ad
 - Workflow filename: `release.yml`
 - Allowed action: `npm publish`
 
-Leave the environment field empty unless the workflow is later assigned to a protected GitHub environment. Once all three packages trust this workflow, remove the `NPM_TOKEN` secret; npm CLI uses the short-lived OIDC identity and generates provenance automatically.
+Leave the environment field empty unless the workflow is later assigned to a protected GitHub environment. Once all three packages trust this workflow, remove the `NPM_TOKEN` secret; pnpm uses the short-lived OIDC identity and generates provenance automatically.
 
 Pushing a Changeset to `main` makes `changesets/action` open or update a release pull request. Review and merge that pull request; the next `main` run publishes versions not yet present on npm and creates GitHub releases. The workflow skips publishing when no package version is pending.
