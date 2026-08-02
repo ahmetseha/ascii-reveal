@@ -1,5 +1,11 @@
 # @ascii-reveal/core
 
+## 0.1.1
+
+### Patch Changes
+
+- [#4](https://github.com/ahmetseha/ascii-reveal/pull/4) [`ef58b0c`](https://github.com/ahmetseha/ascii-reveal/commit/ef58b0cc3eabc406a067c299cd4fc95cc7c35b8f) Thanks [@ahmetseha](https://github.com/ahmetseha)! - Improve package READMEs with concise installation, usage, options, and manual-control examples.
+
 ## 0.1.0
 
 ### Minor Changes
