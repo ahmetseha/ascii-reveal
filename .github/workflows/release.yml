@@ -15,10 +15,10 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with: { fetch-depth: 0 }
       - uses: pnpm/action-setup@v6
-      - uses: actions/setup-node@v6
+      - uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
           package-manager-cache: false
@@ -31,7 +31,7 @@ jobs:
       - run: pnpm build
       - run: pnpm size
       - name: Create release pull request or publish packages
-        uses: changesets/action@v1
+        uses: changesets/action@v2
         with:
           publish: ${{ vars.NPM_PUBLISH_ENABLED == 'true' && 'pnpm release' || '' }}
           title: "chore: release packages"
